@@ -10,6 +10,8 @@ from core_settings import settings
 
 # register api with default router
 router = routers.DefaultRouter()
+# router.register(r'purchase')
+# router.register(r'sales')
 
 urlpatterns = [
     url(r'^api/v1/', include(router.urls)),

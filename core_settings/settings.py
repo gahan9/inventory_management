@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'inventory_management.apps.InventoryManagementConfig',
     'rest_framework',
     'rest_framework.authtoken',
+    'djmoney'
 ]
 
 MIDDLEWARE = [
@@ -136,7 +137,7 @@ LOGIN_REDIRECT_URL = 'home'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 MEDIA_URL = '/files/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "userfiles")
+MEDIA_ROOT = os.path.join(BASE_DIR, "user_files")
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
