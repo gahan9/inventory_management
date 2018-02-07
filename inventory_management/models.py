@@ -27,7 +27,7 @@ class ProductRecord(models.Model):
                        verbose_name="MRP of Product")
     product_image = models.ImageField(upload_to='media/uploads/', blank=True, null=True)
     product_launch_date = models.DateField(blank=True, null=True, verbose_name="Date of Publish")
-    launched_by = models.DateField(blank=True, null=True, verbose_name="Publisher Name")
+    launched_by = models.CharField(max_length=300, blank=True, null=True, verbose_name="Publisher Name")
     version = models.IntegerField(blank=True, null=True, verbose_name="Edition",
                                   help_text="Enter Version or Edition of Item")
     date_created = models.DateTimeField(auto_now_add=True)
