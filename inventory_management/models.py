@@ -25,6 +25,7 @@ class ProductRecord(models.Model):
                             help_text="Enter Name/Title of Item")
     price = MoneyField(decimal_places=2, default=0, default_currency='INR', max_digits=11,
                        verbose_name="MRP of Product")
+    available_stock = models.IntegerField(blank=True, null=True, default=0)
     product_image = models.ImageField(upload_to='media/uploads/', blank=True, null=True)
     product_launch_date = models.DateField(blank=True, null=True, verbose_name="Date of Publish")
     launched_by = models.CharField(max_length=300, blank=True, null=True, verbose_name="Publisher Name")
@@ -34,15 +35,24 @@ class ProductRecord(models.Model):
     date_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return "{} - {}, ₹{}".format(self.name, self.launched_by, self.price)
 
 
 class EffectiveCost(models.Model):
     discount = models.IntegerField(default=10)
     cost = models.ForeignKey(ProductRecord, on_delete=models.CASCADE)
-    effective_cost = models.IntegerField(blank=True, null=True)
+    effective_cost = MoneyField(decimal_places=2, default=0, default_currency='INR', max_digits=11,
+                                verbose_name="Effective cost")
+    total_effective_cost = MoneyField(decimal_places=2, default=0, default_currency='INR', max_digits=11,
+                                      verbose_name="Total Effective cost", blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
+    quantity = models.IntegerField(default=0, blank=True, null=True)
+
+    def clean(self):
+        self.effective_cost = (self.cost.price.amount * (100-self.discount)) / 100
+        self.total_effective_cost = self.quantity * self.effective_cost
+        self.cost.available_stock = self.cost.available_stock + self.quantity
 
     def __str__(self):
         return "{} - {}% @ {}".format(self.cost.name, self.discount, self.cost.price)

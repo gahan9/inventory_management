@@ -19,7 +19,8 @@ class ProductRecordAdmin(admin.ModelAdmin):
 
 class EffectiveCostAdmin(admin.ModelAdmin):
     search_fields = ["discount"]
-    list_display = ["id", "cost", "discount", "effective_cost"]
+    list_display = ["id", "cost", "discount", "effective_cost", "total_effective_cost"]
+    readonly_fields = ["effective_cost", "total_effective_cost"]
 
 
 class PurchaseRecordAdmin(admin.ModelAdmin):
