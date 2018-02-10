@@ -1,5 +1,7 @@
 # coding=utf-8
 from django.contrib import admin
+
+from core_settings.settings import COMPANY_TITLE
 from inventory_management.models import *
 
 
@@ -26,8 +28,15 @@ class EffectiveCostAdmin(admin.ModelAdmin):
 class PurchaseRecordAdmin(admin.ModelAdmin):
     search_fields = ["name", "address"]
     list_display = ["id", "invoice_id", "purchased_from", "purchase_date", "delivery_date",
-                    "payment_mode", "paid",
+                    "total_invoice_amount", "payment_mode", "paid"
                     ]
+    readonly_fields = ["total_amount", "paid"]
+
+    def total_invoice_amount(self, obj):
+        val = sum([product['total_effective_cost'] for product in obj.items.values()])
+        # print([product.total_effective_cost for product in obj.items.iterator()])
+        # print(val)
+        return val
 
 
 admin.site.register(PurchaseCompany, PurchaseCompanyAdmin)
@@ -35,6 +44,6 @@ admin.site.register(EffectiveCost, EffectiveCostAdmin)
 admin.site.register(ProductRecord, ProductRecordAdmin)
 admin.site.register(PurchaseRecord, PurchaseRecordAdmin)
 
-admin.site.site_header = 'Inventory administration'
-admin.site.site_title = 'Inventory administration'
-admin.site.index_title = 'Inventory administration'
+admin.site.site_header = COMPANY_TITLE + ' administration'
+admin.site.site_title = COMPANY_TITLE + ' administration'
+admin.site.index_title = COMPANY_TITLE + ' administration'
