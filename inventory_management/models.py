@@ -112,7 +112,8 @@ class PurchaseRecord(models.Model):
 
 @receiver(post_save, sender=PurchaseRecord, dispatch_uid="calculate_total_amount")
 def calculate_total_amount(sender, instance, created, *args, **kwargs):
-    # instance.total_amount = sum([product['total_effective_cost'] for product in instance.items.values()])
-    # instance.save()
-    print("post_save : signal", sender, instance, created, kwargs, args)
-    # instance.total_amount = sum([product['total_effective_cost'] for product in instance.items.values()])
+    # print("post_save : signal", sender, instance, created, kwargs, args)
+    total_amount = sum([product['total_effective_cost'] for product in instance.items.values()])
+    if instance.total_amount.amount != total_amount:
+        instance.total_amount = sum([product['total_effective_cost'] for product in instance.items.values()])
+        instance.save()

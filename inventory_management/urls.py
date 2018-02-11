@@ -18,4 +18,5 @@ urlpatterns = [
     url(r'^api/', RedirectView.as_view(url='/api/v1/')),
     url(r'^login/', django_login, {'template_name': 'common/login.html'}, name='login'),
     url(r'^logout/', django_logout, {'next_page': '/login/'}, name='logout'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    url(r'^', HomePageView.as_view(), name='home'),
+] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

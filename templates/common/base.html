@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Inventory Management{% endblock %}</title>
+    <link rel="shortcut icon" type="image/png" href="{% block favicon %}
+            {% static '/assets/logos/favicon.png' %}
+        {% endblock %}"/>
+    {% block css %}
+        <link rel="stylesheet" href="{% static '/bootstrap/dist/css/bootstrap.css' %}">
+    {% endblock %}
+</head>
+<body>
+{% block navbar %} {% endblock %}
+{% block content %}
+    <h3>Coming Soon...</h3>
+{% endblock %}
+{% block footer %} {% endblock %}
+</body>
+{% block js %}
+    <script src="{% static '/bootstrap/dist/js/bootstrap.bundle.js' %}"></script>
+{% endblock %}
+{% block extrajs %}
+{% endblock %}
+</html>
