@@ -4,7 +4,7 @@ from rest_framework import serializers
 from inventory_management.models import PurchaseRecord
 
 
-class PurchaseRecordSerializer(serializers.ModelSerializer):
+class PurchaseRecordSerializer(serializers.HyperlinkedModelSerializer):
     final_amount = serializers.SerializerMethodField()
 
     def update(self, instance, validated_data):
@@ -23,9 +23,10 @@ class PurchaseRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = PurchaseRecord
         fields = ["invoice_id", "purchase_date", "total_amount", "paid", "final_amount"]
+        # fields = "__all__"
 
 
-class EffectiveCostSerializer(serializers.ModelSerializer):
+class EffectiveCostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PurchaseRecord
         fields = "__all__"

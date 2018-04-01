@@ -97,6 +97,15 @@ class PurchaseRecord(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
+    @property
+    def is_paid(self):
+        # to test a case - if payment mode is specified then paid status needs to be true
+        if self.payment_mode and not self.paid:
+            self.paid = True
+            self.save()
+        return bool(self.payment_mode and self.paid)
+
+    @property
     def get_items(self):
         return [p.get_detail for p in self.items.all()]
 

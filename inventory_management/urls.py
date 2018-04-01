@@ -14,7 +14,7 @@ from core_settings import settings
 
 # register api with default router
 router = routers.DefaultRouter()
-router.register(r'purchase', PurchaseRecordViewSet)
+router.register(r'purchase', PurchaseRecordViewSet, base_name="purchaserecord")
 # router.register(r'sales')
 
 urlpatterns = [

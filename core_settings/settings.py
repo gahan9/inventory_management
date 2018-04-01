@@ -139,6 +139,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Selenium Test
+CHROME_DRIVER_PATH = r"F:\dev\_selenium\ChromeDriver\chromedriver.exe"
+
 LOGIN_REDIRECT_URL = 'home'
 
 # Static files (CSS, JavaScript, Images)
@@ -162,8 +165,10 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # in bytes
 
 # Module Setting
 # Below Include Module details which you want to change
-PRODUCT_MAKER = {"Book": "Publisher", "Groceries": "Supplier", "Software": "Developer",
-                 "Electronics": "Manufacturer"}  # Product type may be book, software a specific hardware, groceries etc.
+PRODUCT_MAKER = {
+    "Book": "Publisher", "Groceries": "Supplier", "Software": "Developer",
+    "Pharmacy": "Distributor", "Electronics": "Manufacturer"
+}  # Product type may be book, software a specific hardware, groceries etc.
 PRODUCT_TYPE = "Book"
 COMPANY_TITLE = "Gahan Traders"  # Title of your company
 COMPANY_LOGO = "https://lh3.googleusercontent.com/-B6uTIjXzGw4/AAAAAAAAAAI/AAAAAAAAAAA/yB-tSKpt5CA/s40-c-k-mo/photo.jpg"
