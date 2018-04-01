@@ -1,32 +1,26 @@
 {% extends 'common/base.html' %}
-
-{% block title %}
-    Login
-{% endblock %}
-
+{% load static %}
 {% block content %}
-    <div class="container col-6 col-md-4">
-        <div class="text-center">
-            <span class="h4">Login</span>
-                <form action="" method="post" role="form">
+        <div class="container">
+			<header>
+				<h1><strong>Login</strong></h1>
+			</header>
+			
+			<section class="main">
+				<form class="form-1" method="post">
                     {% csrf_token %}
-                    {% if form.non_field_errors %}
-                        <ul class='form-errors'>
-                            {% for error in form.non_field_errors %}
-                                <li class="text-danger">{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                    <div class="form-group">
-                        {{ form.username }}
-                    </div>
-                    <div class="form-group">
-                        {{ form.password }}
-                    </div>
-                    <div class="form-group text-center">
-                        <button class="btn btn-theme">Login</button>
-                    </div>
-                </form>
+					<p class="field">
+						{{ form.username }}
+						<i class="icon-user icon-large"></i>
+					</p>
+						<p class="field">
+							{{ form.password }}
+							<i class="icon-lock icon-large"></i>
+					</p>
+					<p class="submit">
+						<button type="submit" name="submit"><i class="icon-arrow-right icon-large"></i></button>
+					</p>
+				</form>
+			</section>
         </div>
-    </div>
 {% endblock %}

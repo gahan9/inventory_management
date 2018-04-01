@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'inventory_management.apps.InventoryManagementConfig',
+    'inventory_management',
     'rest_framework',
     'rest_framework.authtoken',
     'djmoney',
@@ -87,6 +87,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'inventory_management.context_processors.site_details',
             ],
         },
     },
@@ -165,3 +166,4 @@ PRODUCT_MAKER = {"Book": "Publisher", "Groceries": "Supplier", "Software": "Deve
                  "Electronics": "Manufacturer"}  # Product type may be book, software a specific hardware, groceries etc.
 PRODUCT_TYPE = "Book"
 COMPANY_TITLE = "Gahan Traders"  # Title of your company
+COMPANY_LOGO = "https://lh3.googleusercontent.com/-B6uTIjXzGw4/AAAAAAAAAAI/AAAAAAAAAAA/yB-tSKpt5CA/s40-c-k-mo/photo.jpg"
