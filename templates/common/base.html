@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <title>{% block title %}Inventory Management{% endblock %}</title>
     <link rel="shortcut icon" type="image/png" href="{% block favicon %}
-            {% static '/assets/logos/favicon.png' %}
+            {% static '../../static/bootstrap/dist/css/bootstrap.css' %}
         {% endblock %}"/>
     {% block css %}
-        <link rel="stylesheet" href="{% static '/bootstrap/dist/css/bootstrap.css' %}">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+{#        <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.css' %}">#}
     {% endblock %}
 </head>
 <body>

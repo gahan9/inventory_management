@@ -57,6 +57,9 @@ class EffectiveCost(models.Model):
     date_updated = models.DateTimeField(auto_now=True)
     quantity = models.IntegerField(default=0, blank=True, null=True)
 
+    def get_detail(self):
+        return "{} -₹{} @{}%= ₹{}; ₹{} per item ₹{} for total item".format(self.cost.name, self.cost.price, self.discount, self.effective_cost, self.quantity, self.total_effective_cost)
+
     def clean(self):
         self.effective_cost = (self.cost.price.amount * (100 - self.discount)) / 100
         self.total_effective_cost = self.quantity * self.effective_cost
@@ -80,7 +83,7 @@ class PurchaseRecord(models.Model):
                                   verbose_name="Enter Invoice Number",
                                   help_text="Enter Order/Invoice Number")
     purchased_from = models.ForeignKey(PurchaseCompany, on_delete=models.CASCADE,
-                                       verbose_name="Purchased From",
+                                       verbose_name="Supplier Name",
                                        help_text="Choose Company from where purchase is made")
     purchase_date = models.DateField(blank=True, null=True, help_text="Enter date of purchase/invoice")
     delivery_date = models.DateField(blank=True, null=True, help_text="Date of order received")
@@ -94,13 +97,8 @@ class PurchaseRecord(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
-    def clean(self):
-        if self.payment_mode:
-            self.paid = True
-        else:
-            self.paid = False
-        val = sum([product['total_effective_cost'] for product in self.items.values()])
-        return val
+    def get_items(self):
+        return [p.get_detail for p in self.items.all()]
 
     def __str__(self):
         return self.invoice_id

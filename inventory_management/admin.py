@@ -2,17 +2,19 @@
 from django.contrib import admin
 
 from core_settings.settings import COMPANY_TITLE
-from inventory_management.models import *
+from .admin_inlines import *
 
 
 class PurchaseCompanyAdmin(admin.ModelAdmin):
+    inlines = [PurchaseRecordInline]
     search_fields = ["name", "address"]
     list_display = ["id", "name", "contact_number", "alternate_contact_number", "fax_number",
                     "address",
                     ]
 
 
-class ProductRecordAdmin(admin.ModelAdmin):
+class ProductRecordAdmin(nested_admin.NestedModelAdmin):
+    inlines = [EffectiveCostInline]
     search_fields = ["name", "launched_by"]
     list_display = ["id", "name", "price", "product_launch_date", "launched_by",
                     "version",
@@ -27,16 +29,11 @@ class EffectiveCostAdmin(admin.ModelAdmin):
 
 class PurchaseRecordAdmin(admin.ModelAdmin):
     search_fields = ["name", "address"]
-    list_display = ["id", "invoice_id", "purchased_from", "purchase_date", "delivery_date",
-                    "total_invoice_amount", "payment_mode", "paid"
+    list_display = ["id", "invoice_id", "purchased_from", "purchase_date", "get_items",
+                    # "delivery_date",
+                    "total_amount", "payment_mode", "paid"
                     ]
     readonly_fields = ["total_amount", "paid"]
-
-    def total_invoice_amount(self, obj):
-        val = sum([product['total_effective_cost'] for product in obj.items.values()])
-        # print([product.total_effective_cost for product in obj.items.iterator()])
-        # print(val)
-        return val
 
 
 admin.site.register(PurchaseCompany, PurchaseCompanyAdmin)

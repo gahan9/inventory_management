@@ -6,3 +6,4 @@ Markdown==2.6.11
 Pillow==5.0.0
 py-moneyed==0.7.0
 pytz==2017.3
+django-nested-admin==3.0.21

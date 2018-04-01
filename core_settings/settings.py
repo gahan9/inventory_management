@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'inventory_management.apps.InventoryManagementConfig',
     'rest_framework',
     'rest_framework.authtoken',
-    'djmoney'
+    'djmoney',
+    'nested_admin',
 ]
 
 MIDDLEWARE = [
@@ -147,8 +148,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "user_files")
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
-STATIC_ROOT = '/assets/'
-STATIC_ROOT_DIR = os.path.join(BASE_DIR, 'assets')
+# STATIC_ROOT = '/assets/'
+# STATIC_ROOT_DIR = os.path.join(BASE_DIR, 'assets')
 
 # File upload handlers
 FILE_UPLOAD_HANDLERS = [

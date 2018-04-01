@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from rest_framework import viewsets
 
+from core_settings.settings import COMPANY_TITLE
 from inventory_management.models import PurchaseRecord
 from inventory_management.serializers import PurchaseRecordSerializer
 
@@ -28,4 +29,5 @@ class HomePageView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
         context['users'] = User.objects.all()
+        context['company_title'] = COMPANY_TITLE
         return context
