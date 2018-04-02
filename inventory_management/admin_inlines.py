@@ -1,4 +1,5 @@
 # coding=utf-8
+__author__ = "Gahan Saraiya"
 import nested_admin
 
 from .models import *

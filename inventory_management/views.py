@@ -1,4 +1,5 @@
 # coding=utf-8
+__author__ = "Gahan Saraiya"
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render
@@ -28,6 +29,4 @@ class HomePageView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
-        context['users'] = User.objects.all()
-        context['company_title'] = COMPANY_TITLE
         return context

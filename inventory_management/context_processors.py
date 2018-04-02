@@ -1,4 +1,5 @@
 # coding=utf-8
+__author__ = "Gahan Saraiya"
 from core_settings.settings import COMPANY_TITLE, COMPANY_LOGO, PRODUCT_TYPE
 
 

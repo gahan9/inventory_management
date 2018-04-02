@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ SITE_NAME }}|{% block title %}Inventory Management{% endblock %}</title>
-    <link rel="shortcut icon" type="image/png" href="{% block favicon %}
-            {% static 'assets/logos/favicon.png' %}
-        {% endblock %}"/>
+    <link rel="shortcut icon" type="image/png"
+          href="{% block favicon %} {{ SITE_LOGO }} {% endblock %}"/>
     {% block css %}
 {#        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">#}
         <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.css' %}">

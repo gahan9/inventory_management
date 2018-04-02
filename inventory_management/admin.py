@@ -1,4 +1,5 @@
 # coding=utf-8
+__author__ = "Gahan Saraiya"
 from django.contrib import admin
 
 from core_settings.settings import COMPANY_TITLE
@@ -31,9 +32,9 @@ class PurchaseRecordAdmin(admin.ModelAdmin):
     search_fields = ["name", "address"]
     list_display = ["id", "invoice_id", "purchased_from", "purchase_date", "get_items",
                     # "delivery_date",
-                    "total_amount", "payment_mode", "paid"
+                    "total_amount", "payment_mode", "payment_status"
                     ]
-    readonly_fields = ["total_amount", "paid"]
+    readonly_fields = ["total_amount", "payment_status"]
 
 
 admin.site.register(PurchaseCompany, PurchaseCompanyAdmin)
