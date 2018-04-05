@@ -1,4 +1,5 @@
 # coding=utf-8
+from easy_select2.utils import select2_modelform
 from nested_inline.admin import NestedModelAdmin
 
 __author__ = "Gahan Saraiya"
@@ -6,6 +7,8 @@ from django.contrib import admin
 
 from core_settings.settings import COMPANY_TITLE
 from .admin_inlines import *
+
+PurchaseRecordForm = select2_modelform(PurchaseRecord)
 
 
 class PurchaseCompanyAdmin(NestedModelAdmin):
@@ -31,6 +34,7 @@ class EffectiveCostAdmin(admin.ModelAdmin):
 
 
 class PurchaseRecordAdmin(admin.ModelAdmin):
+    form = PurchaseRecordForm
     search_fields = ["name", "address"]
     list_display = ["id", "invoice_id", "purchased_from", "purchase_date", "get_items",
                     # "delivery_date",
