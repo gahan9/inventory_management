@@ -9,10 +9,6 @@ class PurchaseRecordSerializer(serializers.HyperlinkedModelSerializer):
 
     def update(self, instance, validated_data):
         instance = super(PurchaseRecordSerializer, self).update(instance, validated_data)
-        if instance.payment_mode:
-            instance.paid = True
-        else:
-            instance.paid = False
         val = sum([product['total_effective_cost'] for product in instance.items.values()])
         return val
 
@@ -22,7 +18,10 @@ class PurchaseRecordSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = PurchaseRecord
-        fields = ["invoice_id", "purchase_date", "total_amount", "paid", "final_amount"]
+        fields = ["invoice_id", "purchase_date",
+                  "purchased_from", "purchase_date", "delivery_date",
+                  "items", "payment_mode", "payment_status",
+                  "total_amount", "final_amount"]
         # fields = "__all__"
 
 
