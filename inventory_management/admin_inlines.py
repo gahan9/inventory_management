@@ -1,7 +1,7 @@
 # coding=utf-8
-from django.contrib.admin.options import TabularInline
-
 __author__ = "Gahan Saraiya"
+
+from django.contrib.admin.options import TabularInline
 from nested_inline.admin import NestedStackedInline
 from .models import *
 
