@@ -11,6 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
+os.environ["LOCATION"] = "home/tony221b/inventory_management"
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core_settings.settings")
 
 application = get_wsgi_application()
