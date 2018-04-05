@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-from .local_settings import DATABASES
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -41,8 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djmoney',
-     'nested_inline',
-     'easy_select2',
+    'nested_inline',
+    'easy_select2',
 ]
 
 MIDDLEWARE = [
