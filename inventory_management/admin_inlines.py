@@ -1,13 +1,16 @@
 # coding=utf-8
-__author__ = "Gahan Saraiya"
-import nested_admin
+from django.contrib.admin.options import TabularInline
 
+__author__ = "Gahan Saraiya"
+from nested_inline.admin import NestedStackedInline
 from .models import *
 
 
-class EffectiveCostInline(nested_admin.NestedTabularInline):
+class EffectiveCostInline(NestedStackedInline):
     model = EffectiveCost
+    extra = 0
 
 
-class PurchaseRecordInline(nested_admin.NestedTabularInline):
+class PurchaseRecordInline(NestedStackedInline):
     model = PurchaseRecord
+    extra = 0

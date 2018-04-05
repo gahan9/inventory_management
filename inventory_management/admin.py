@@ -1,4 +1,6 @@
 # coding=utf-8
+from nested_inline.admin import NestedModelAdmin
+
 __author__ = "Gahan Saraiya"
 from django.contrib import admin
 
@@ -6,7 +8,7 @@ from core_settings.settings import COMPANY_TITLE
 from .admin_inlines import *
 
 
-class PurchaseCompanyAdmin(admin.ModelAdmin):
+class PurchaseCompanyAdmin(NestedModelAdmin):
     inlines = [PurchaseRecordInline]
     search_fields = ["name", "address"]
     list_display = ["id", "name", "contact_number", "alternate_contact_number", "fax_number",
@@ -14,7 +16,7 @@ class PurchaseCompanyAdmin(admin.ModelAdmin):
                     ]
 
 
-class ProductRecordAdmin(nested_admin.NestedModelAdmin):
+class ProductRecordAdmin(NestedModelAdmin):
     inlines = [EffectiveCostInline]
     search_fields = ["name", "launched_by"]
     list_display = ["id", "name", "price", "product_launch_date", "launched_by",
@@ -34,7 +36,24 @@ class PurchaseRecordAdmin(admin.ModelAdmin):
                     # "delivery_date",
                     "total_amount", "payment_mode", "payment_status"
                     ]
-    readonly_fields = ["total_amount", "payment_status"]
+    readonly_fields = ["total_amount"]
+    fieldsets = (
+        (None, {'fields': ["invoice_id"]}),
+        ("Items", {'fields': ["items"]}),
+        ("Payment Details", {'fields': ["total_amount", "payment_mode", "payment_status"]}),
+        ("Other Details", {'fields': ["purchased_from", "purchase_date"]}),
+    )
+    add_fieldsets = (
+        (None, {'fields': ["invoice_id"]}),
+        ("Items", {'fields': ["items"]}),
+        ("Payment Details", {'fields': ["total_amount", "payment_mode", "payment_status"]}),
+        ("Other Details", {'fields': ["purchased_from", "purchase_date"]}),
+    )
+
+    def get_fieldsets(self, request, obj=None):
+        if not obj:
+            return self.add_fieldsets
+        return super().get_fieldsets(request, obj)
 
 
 admin.site.register(PurchaseCompany, PurchaseCompanyAdmin)
