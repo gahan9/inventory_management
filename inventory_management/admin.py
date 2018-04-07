@@ -1,17 +1,22 @@
 # coding=utf-8
 from easy_select2.utils import select2_modelform
 from nested_inline.admin import NestedModelAdmin
-
-__author__ = "Gahan Saraiya"
 from django.contrib import admin
 
+from main.admin import BasePurchaseRecordAdmin, BaseEffectiveCostAdmin
 from core_settings.settings import COMPANY_TITLE
 from .admin_inlines import *
 
-PurchaseRecordForm = select2_modelform(PurchaseRecord)
+__author__ = "Gahan Saraiya"
+
+DistributorForm = select2_modelform(Distributor, {'width': "600px"})
+ProductRecordForm = select2_modelform(ProductRecord, {'width': "600px"})
+PurchaseRecordForm = select2_modelform(PurchaseRecord, {'width': "600px"})
+EffectiveCostForm = select2_modelform(EffectiveCost, {'width': "300px"})
 
 
-class PurchaseCompanyAdmin(NestedModelAdmin):
+class DistributorAdmin(NestedModelAdmin):
+    form = DistributorForm
     inlines = [PurchaseRecordInline]
     search_fields = ["name", "address"]
     list_display = ["id", "name", "contact_number", "alternate_contact_number", "fax_number",
@@ -20,6 +25,7 @@ class PurchaseCompanyAdmin(NestedModelAdmin):
 
 
 class ProductRecordAdmin(NestedModelAdmin):
+    form = ProductRecordForm
     inlines = [EffectiveCostInline]
     search_fields = ["name", "launched_by"]
     list_display = ["id", "name", "price", "product_launch_date", "launched_by",
@@ -27,40 +33,19 @@ class ProductRecordAdmin(NestedModelAdmin):
                     ]
 
 
-class EffectiveCostAdmin(admin.ModelAdmin):
+class EffectiveCostAdmin(BaseEffectiveCostAdmin):
+    form = EffectiveCostForm
     search_fields = ["discount"]
-    list_display = ["id", "cost", "discount", "effective_cost", "total_effective_cost"]
-    readonly_fields = ["effective_cost", "total_effective_cost"]
+    list_display = ["id", "cost", "discount",
+                    "get_effective_cost", "get_total_effective_cost"]
+    readonly_fields = ["get_effective_cost", "get_total_effective_cost"]
 
 
-class PurchaseRecordAdmin(admin.ModelAdmin):
+class PurchaseRecordAdmin(BasePurchaseRecordAdmin):
     form = PurchaseRecordForm
-    search_fields = ["name", "address"]
-    list_display = ["id", "invoice_id", "purchased_from", "purchase_date", "get_items",
-                    # "delivery_date",
-                    "total_amount", "payment_mode", "payment_status"
-                    ]
-    readonly_fields = ["total_amount"]
-    fieldsets = (
-        (None, {'fields': ["invoice_id"]}),
-        ("Items", {'fields': ["items"]}),
-        ("Payment Details", {'fields': ["total_amount", "payment_mode", "payment_status"]}),
-        ("Other Details", {'fields': ["purchased_from", "purchase_date"]}),
-    )
-    add_fieldsets = (
-        (None, {'fields': ["invoice_id"]}),
-        ("Items", {'fields': ["items"]}),
-        ("Payment Details", {'fields': ["total_amount", "payment_mode", "payment_status"]}),
-        ("Other Details", {'fields': ["purchased_from", "purchase_date"]}),
-    )
-
-    def get_fieldsets(self, request, obj=None):
-        if not obj:
-            return self.add_fieldsets
-        return super().get_fieldsets(request, obj)
 
 
-admin.site.register(PurchaseCompany, PurchaseCompanyAdmin)
+admin.site.register(Distributor, DistributorAdmin)
 admin.site.register(EffectiveCost, EffectiveCostAdmin)
 admin.site.register(ProductRecord, ProductRecordAdmin)
 admin.site.register(PurchaseRecord, PurchaseRecordAdmin)

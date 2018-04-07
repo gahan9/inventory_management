@@ -1,13 +1,8 @@
 {% extends "admin/base.html" %}
 {% load static %}
 {% block title %}{{ site_title|default:_('Django site admin') }}{% endblock %}
-
 {% block branding %}
 <a href="#">
-{#    <img src="http://127.0.0.1:8889/static/favicon-black.png"/>#}
-    <img src="{{ SITE_LOGO }}"/>
+    <img src="{{ SITE_LOGO }}" class="img-wrap"/>
 </a>
-
 {% endblock %}
-
-{% block nav-global %}{% endblock %}

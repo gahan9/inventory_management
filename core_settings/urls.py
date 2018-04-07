@@ -22,5 +22,6 @@ from core_settings import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('nested_admin/', include('nested_admin.urls')),
+    path('accounts/', include('accounts.urls')),
     path('', include('inventory_management.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

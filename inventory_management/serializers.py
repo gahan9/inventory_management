@@ -1,7 +1,7 @@
 # coding=utf-8
 from rest_framework import serializers
 
-from inventory_management.models import PurchaseRecord
+from inventory_management.models import *
 
 
 class PurchaseRecordSerializer(serializers.HyperlinkedModelSerializer):
@@ -27,5 +27,5 @@ class PurchaseRecordSerializer(serializers.HyperlinkedModelSerializer):
 
 class EffectiveCostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = PurchaseRecord
+        model = EffectiveCost
         fields = "__all__"

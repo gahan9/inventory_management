@@ -9,9 +9,12 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from rest_framework import viewsets
 
-from core_settings.settings import COMPANY_TITLE
-from inventory_management.models import PurchaseRecord
-from inventory_management.serializers import PurchaseRecordSerializer
+from inventory_management.serializers import *
+
+
+class EffectiveCostViewSet(viewsets.ModelViewSet):
+    serializer_class = EffectiveCostSerializer
+    queryset = EffectiveCost.objects.all()
 
 
 class PurchaseRecordViewSet(viewsets.ModelViewSet):

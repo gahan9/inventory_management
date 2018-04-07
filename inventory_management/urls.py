@@ -1,6 +1,5 @@
 # coding=utf-8
 from django.conf.urls import include
-from django.contrib.auth.views import login as django_login, logout as django_logout
 from django.conf.urls.static import static
 from django.urls import path
 from django.views.generic.base import RedirectView
@@ -14,13 +13,11 @@ from core_settings import settings
 
 # register api with default router
 router = routers.DefaultRouter()
+router.register(r'effectivecost', PurchaseRecordViewSet, base_name="effectivecost")
 router.register(r'purchase', PurchaseRecordViewSet, base_name="purchaserecord")
 # router.register(r'sales')
 
 urlpatterns = [
-    # Login Logout
-    path('login/', django_login, {'template_name': 'common/login.html', 'authentication_form': LoginForm}, name='login'),
-    path('logout/', django_logout, {'next_page': '/login/'}, name='logout'),
     # Home
     path('', HomePageView.as_view(), name='home'),
     # REST API
