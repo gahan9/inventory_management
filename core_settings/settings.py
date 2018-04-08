@@ -179,3 +179,4 @@ PRODUCT_MAKER = {
 PRODUCT_TYPE = "Book"
 COMPANY_TITLE = "Gahan Traders"  # Title of your company
 COMPANY_LOGO = "https://lh3.googleusercontent.com/-B6uTIjXzGw4/AAAAAAAAAAI/AAAAAAAAAAA/yB-tSKpt5CA/s40-c-k-mo/photo.jpg"
+COPYRIGHT_SINCE = 2017
