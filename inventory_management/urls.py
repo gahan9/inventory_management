@@ -15,6 +15,7 @@ from core_settings import settings
 router = routers.DefaultRouter()
 router.register(r'effectivecost', PurchaseRecordViewSet, base_name="effectivecost")
 router.register(r'purchase', PurchaseRecordViewSet, base_name="purchaserecord")
+router.register(r'distributor', DistributorViewSet, base_name="distributor")
 # router.register(r'sales')
 
 urlpatterns = [

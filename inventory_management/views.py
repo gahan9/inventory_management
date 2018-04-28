@@ -1,15 +1,13 @@
 # coding=utf-8
-__author__ = "Gahan Saraiya"
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
-from django.shortcuts import render
-
-# Create your views here.
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
+
 from rest_framework import viewsets
 
 from inventory_management.serializers import *
+
+__author__ = "Gahan Saraiya"
 
 
 class EffectiveCostViewSet(viewsets.ModelViewSet):
@@ -18,6 +16,11 @@ class EffectiveCostViewSet(viewsets.ModelViewSet):
 
 
 class PurchaseRecordViewSet(viewsets.ModelViewSet):
+    serializer_class = PurchaseRecordSerializer
+    queryset = PurchaseRecord.objects.all()
+
+
+class DistributorViewSet(viewsets.ModelViewSet):
     serializer_class = PurchaseRecordSerializer
     queryset = PurchaseRecord.objects.all()
 
