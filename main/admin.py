@@ -1,13 +1,15 @@
 # coding=utf-8
+from django.contrib import admin
+
 from easy_select2.utils import select2_modelform
 from nested_inline.admin import NestedModelAdmin
-
-__author__ = "Gahan Saraiya"
-from django.contrib import admin
 
 from core_settings.settings import COMPANY_TITLE
 from .admin_inlines import *
 
+__author__ = "Gahan Saraiya"
+
+__all__ = ['BaseDistributorAdmin', 'BaseProductRecordAdmin', 'BaseEffectiveCostAdmin', 'BasePurchaseRecordAdmin']
 # PurchaseCompanyForm = select2_modelform(PurchaseCompany, {'width': "600px"})
 # BaseProductRecordForm = select2_modelform(BaseProductRecord, {'width': "600px"})
 # PurchaseRecordForm = select2_modelform(BaseProductRecord, {'width': "600px"})
@@ -21,7 +23,7 @@ class BaseDistributorAdmin(NestedModelAdmin):
                     ]
 
 
-class ProductRecordAdmin(NestedModelAdmin):
+class BaseProductRecordAdmin(NestedModelAdmin):
     inlines = [EffectiveCostInline]
     search_fields = ["name", "launched_by"]
     list_display = ["id", "name", "price", "product_launch_date", "launched_by",

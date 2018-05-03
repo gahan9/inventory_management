@@ -1,7 +1,10 @@
 # coding=utf-8
-__author__ = "Gahan Saraiya"
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
+
+__author__ = "Gahan Saraiya"
+
+__all__ = ['LoginForm']
 
 
 class LoginForm(AuthenticationForm):

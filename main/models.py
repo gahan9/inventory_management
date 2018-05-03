@@ -5,8 +5,11 @@ from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from djmoney.models.fields import MoneyField
 
-from core_settings.settings import PRODUCT_TYPE, PRODUCT_MAKER
+from core_settings.settings import PRODUCT_TYPE
+
 __author__ = "Gahan Saraiya"
+
+__all__ = ['BaseDistributor', 'BaseEffectiveCost', 'BaseProductRecord', 'BasePurchaseRecord']
 
 
 class BaseDistributor(models.Model):

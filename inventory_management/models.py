@@ -1,6 +1,8 @@
 # coding=utf-8
+from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from main.models import *
+from core_settings.settings import PRODUCT_TYPE, PRODUCT_MAKER
 
 
 class Distributor(BaseDistributor):

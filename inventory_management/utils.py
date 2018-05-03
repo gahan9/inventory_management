@@ -1,7 +1,8 @@
 # coding=utf-8
-__author__ = "Gahan Saraiya"
 import os
 import pickle
+
+__author__ = "Gahan Saraiya"
 
 
 def pickler(flag=0, **kwargs):

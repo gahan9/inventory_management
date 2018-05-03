@@ -1,9 +1,11 @@
 # coding=utf-8
-__author__ = "Gahan Saraiya"
-
 from django.contrib.admin.options import TabularInline
 from nested_inline.admin import NestedStackedInline
 from .models import *
+
+__author__ = "Gahan Saraiya"
+
+__all__ = ['EffectiveCostInline', 'PurchaseRecordInline']
 
 
 class EffectiveCostInline(NestedStackedInline):

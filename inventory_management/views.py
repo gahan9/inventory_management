@@ -10,6 +10,11 @@ from inventory_management.serializers import *
 __author__ = "Gahan Saraiya"
 
 
+class ProductRecordViewSet(viewsets.ModelViewSet):
+    serializer_class = ProductRecordSerializer
+    queryset = ProductRecord.objects.all()
+
+
 class EffectiveCostViewSet(viewsets.ModelViewSet):
     serializer_class = EffectiveCostSerializer
     queryset = EffectiveCost.objects.all()

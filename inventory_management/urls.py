@@ -23,7 +23,7 @@ urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
     # REST API
     path('api/v1/', include(router.urls)),
-    # path('^api/', RedirectView.as_view(url='/api/v1/')),
+    path('^api/', RedirectView.as_view(url='/api/v1/')),
     # API AUTH
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api-token-auth/', auth_token_views.obtain_auth_token, name='get_auth_token'),

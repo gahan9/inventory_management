@@ -14,6 +14,12 @@ class PurchaseRecordSerializer(serializers.HyperlinkedModelSerializer):
         # fields = "__all__"
 
 
+class ProductRecordSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ProductRecord
+        fields = "__all__"
+
+
 class EffectiveCostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = EffectiveCost

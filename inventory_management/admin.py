@@ -5,6 +5,7 @@ from django.contrib import admin
 
 from main.admin import BasePurchaseRecordAdmin, BaseEffectiveCostAdmin
 from core_settings.settings import COMPANY_TITLE
+from .models import *
 from .admin_inlines import *
 
 __author__ = "Gahan Saraiya"
