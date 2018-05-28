@@ -9,7 +9,7 @@ from core_settings.settings import PRODUCT_TYPE
 
 __author__ = "Gahan Saraiya"
 
-__all__ = ['BaseDistributor', 'BaseEffectiveCost', 'BaseProductRecord', 'BasePurchaseRecord']
+__all__ = ['BaseDistributor', 'BaseEffectiveCost', 'BaseProductRecord', 'BasePurchaseRecord', 'BaseCustomer', 'BaseSaleRecord']
 
 
 class BaseDistributor(models.Model):
@@ -132,3 +132,30 @@ class BasePurchaseRecord(models.Model):
         verbose_name = "Purchase Details of " + PRODUCT_TYPE
         verbose_name_plural = "Purchase Details of item from various suppliers"
 
+
+class BaseCustomer(models.Model):
+    name = models.CharField(max_length=255,
+                            verbose_name=_("Customer Name"),
+                            help_text=_("Enter Name of the customer who is purchasing"))
+    contact_number = models.IntegerField(blank=True, null=True,
+                                         verbose_name=_("Contact Number"))
+    alternate_contact_number = models.IntegerField(blank=True, null=True,
+                                                   verbose_name=_("Alternate Contact Number"))
+    address = models.TextField(_("Postal Address"), blank=True, null=True,
+                               help_text=_("Address of distributor"))
+    email_address = models.EmailField(blank=True, null=True,
+                                      verbose_name=_("Email Address"),
+                                      help_text=_("i.e. example@domain.com"))
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
+
+    @property
+    def has_email(self):
+        return bool(self.email_address)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Customer detail"
+        verbose_name_plural = "Customer Details"

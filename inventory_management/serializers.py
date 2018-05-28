@@ -2,12 +2,13 @@
 from rest_framework import serializers
 
 from inventory_management.models import *
+from main.serializers import *
 
 
 class PurchaseRecordSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PurchaseRecord
-        fields = ["invoice_id", "purchase_date",
+        fields = ["id", "url", "invoice_id", "purchase_date",
                   "purchased_from", "purchase_date", "delivery_date",
                   "items", "payment_mode", "payment_status",
                   "total_amount"]
@@ -26,7 +27,7 @@ class EffectiveCostSerializer(serializers.HyperlinkedModelSerializer):
         fields = "__all__"
 
 
-class DistributorSerializer(serializers.HyperlinkedModelSerializer):
+class DistributorSerializer(BaseDistributorSerializer):
     class Meta:
         model = Distributor
-        fields = "__all__"
+        fields = BaseDistributorSerializer.Meta.fields + ['address2']

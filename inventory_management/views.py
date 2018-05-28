@@ -26,8 +26,8 @@ class PurchaseRecordViewSet(viewsets.ModelViewSet):
 
 
 class DistributorViewSet(viewsets.ModelViewSet):
-    serializer_class = PurchaseRecordSerializer
-    queryset = PurchaseRecord.objects.all()
+    serializer_class = DistributorSerializer
+    queryset = Distributor.objects.all()
 
 
 class HomePageView(LoginRequiredMixin, TemplateView):
