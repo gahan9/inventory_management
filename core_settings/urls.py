@@ -20,7 +20,9 @@ from django.urls import path, include
 from core_settings import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+    path('admin/', admin.site.urls),  # Django ADMIN URLS
     path('nested_admin/', include('nested_admin.urls')),
     path('accounts/', include('accounts.urls')),
     path('', include('inventory_management.urls')),

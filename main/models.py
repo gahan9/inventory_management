@@ -44,6 +44,7 @@ class BaseDistributor(models.Model):
     class Meta:
         verbose_name = "Supplier detail"
         verbose_name_plural = "Supplier Details"
+        abstract = True
 
 
 class BaseProductRecord(models.Model):
@@ -129,6 +130,7 @@ class BasePurchaseRecord(models.Model):
         return self.invoice_id
 
     class Meta:
+        abstract = True
         verbose_name = "Purchase Details of " + PRODUCT_TYPE
         verbose_name_plural = "Purchase Details of item from various suppliers"
 
@@ -157,5 +159,49 @@ class BaseCustomer(models.Model):
         return self.name
 
     class Meta:
+        abstract = True
         verbose_name = "Customer detail"
         verbose_name_plural = "Customer Details"
+
+
+class BaseSaleRecord(models.Model):
+    PAYMENT_MODE = (
+        (1, _("Cash")),
+        (2, _("Cheque")),
+        (3, _("Online Transfer NEFT/RTGS")),
+        (4, _("Demand Draft")),
+    )
+    invoice_id = models.CharField(max_length=80, blank=True, null=True,
+                                  verbose_name=_("Enter Invoice Number"),
+                                  help_text=_("Enter Order/Invoice Number"))
+    purchase_date = models.DateField(blank=True, null=True,
+                                     help_text=_("Enter date of purchase/invoice"))
+    delivery_date = models.DateField(blank=True, null=True,
+                                     help_text=_("Date of order received"))
+    # total_amount = MoneyField(
+    #     decimal_places=2, default=0,
+    #     blank=True, null=True,
+    #     default_currency='INR', max_digits=11,
+    #     verbose_name=_("Total Invoice Amount"),
+    #     help_text=_("Total Payable Invoice Amount [Discounted Rate]"))
+    payment_mode = models.IntegerField(choices=PAYMENT_MODE, blank=True, null=True)
+    payment_status = models.BooleanField(
+        default=False,
+        verbose_name=_("Payment Status (in transit/dispute)"),
+        help_text=_("mark if payment isn't processed immediately"))
+    payment_date = models.DateField(blank=True, null=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
+
+    @property
+    def is_paid(self):
+        # to test a case - if payment mode is specified then paid status needs to be true
+        return bool(self.payment_mode)
+
+    def __str__(self):
+        return self.invoice_id
+
+    class Meta:
+        abstract = True
+        verbose_name = "Sale record"
+        verbose_name_plural = "Sale Records"
