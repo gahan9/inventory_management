@@ -59,7 +59,11 @@ class PurchaseRecord(BasePurchaseRecord):
 
     @property
     def get_total(self):
-        return sum([EffectiveCost.objects.get(id=product['id']).get_total_effective_cost for product in self.items.values()])
+        try:
+            return sum([product.get_total_effective_cost for product in self.items.all()])
+        except Exception as e:
+            print("Exception in calculating total amount... : " + str(e))
+            return '0'
 
     @property
     def get_items(self):
