@@ -44,6 +44,22 @@ class EffectiveCostAdmin(BaseEffectiveCostAdmin):
 
 class PurchaseRecordAdmin(BasePurchaseRecordAdmin):
     form = PurchaseRecordForm
+    list_display = ["id", "invoice_id", "purchased_from", "purchase_date", "get_items",
+                    "get_total", "payment_mode", "payment_status"
+                    ]
+    readonly_fields = ['get_total']
+    fieldsets = (
+        (None, {'fields': ["invoice_id"]}),
+        ("Items", {'fields': ["items"]}),
+        ("Payment Details", {'fields': ["get_total", "payment_mode", "payment_status"]}),
+        ("Other Details", {'fields': ["purchased_from", "purchase_date"]}),
+    )
+    add_fieldsets = (
+        (None, {'fields': ["invoice_id"]}),
+        ("Items", {'fields': ["items"]}),
+        ("Payment Details", {'fields': ["get_total", "payment_mode", "payment_status"]}),
+        ("Other Details", {'fields': ["purchased_from", "purchase_date"]}),
+    )
 
 
 admin.site.register(Distributor, DistributorAdmin)

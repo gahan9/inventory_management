@@ -1,4 +1,5 @@
 # coding=utf-8
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
@@ -81,7 +82,7 @@ class BaseEffectiveCost(models.Model):
     discount = models.IntegerField(default=10)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
-    quantity = models.IntegerField(default=0, blank=True, null=True)
+    quantity = models.IntegerField(default=1, blank=True, null=True, validators=[MinValueValidator(1)])
 
     @property
     def details(self):

@@ -58,10 +58,10 @@ class PurchaseRecord(BasePurchaseRecord):
         help_text=_("Choose Company from where purchase is made"))
 
     @property
-    def get_total_amount(self):
-        return sum([product.get_total_effective_cost for product in self.items.values()])
+    def get_total(self):
+        return sum([EffectiveCost.objects.get(id=product['id']).get_total_effective_cost for product in self.items.values()])
 
     @property
     def get_items(self):
-        return '\n'.join([p.get_detail for p in self.items.all()])
+        return ' | \n'.join([p.get_detail for p in self.items.all()])
 
