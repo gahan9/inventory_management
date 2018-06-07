@@ -3,6 +3,7 @@ from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from djmoney.models.fields import MoneyField
 
@@ -104,7 +105,7 @@ class BasePurchaseRecord(models.Model):
                                   verbose_name=_("Enter Invoice Number"),
                                   help_text=_("Enter Order/Invoice Number"))
 
-    purchase_date = models.DateField(blank=True, null=True,
+    purchase_date = models.DateField(blank=True, null=True, default=timezone.now,
                                      help_text=_("Enter date of purchase/invoice"))
     delivery_date = models.DateField(blank=True, null=True,
                                      help_text=_("Date of order received"))
@@ -175,16 +176,10 @@ class BaseSaleRecord(models.Model):
     invoice_id = models.CharField(max_length=80, blank=True, null=True,
                                   verbose_name=_("Enter Invoice Number"),
                                   help_text=_("Enter Order/Invoice Number"))
-    purchase_date = models.DateField(blank=True, null=True,
+    purchase_date = models.DateField(blank=True, null=True, default=timezone.now,
                                      help_text=_("Enter date of purchase/invoice"))
     delivery_date = models.DateField(blank=True, null=True,
                                      help_text=_("Date of order received"))
-    # total_amount = MoneyField(
-    #     decimal_places=2, default=0,
-    #     blank=True, null=True,
-    #     default_currency='INR', max_digits=11,
-    #     verbose_name=_("Total Invoice Amount"),
-    #     help_text=_("Total Payable Invoice Amount [Discounted Rate]"))
     payment_mode = models.IntegerField(choices=PAYMENT_MODE, blank=True, null=True)
     payment_status = models.BooleanField(
         default=False,

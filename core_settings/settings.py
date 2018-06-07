@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'main',
     'inventory_management',
+    'sale_record',
     'rest_framework',
     'rest_framework.authtoken',
     'djmoney',

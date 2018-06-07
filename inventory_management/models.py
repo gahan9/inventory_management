@@ -23,12 +23,15 @@ class ProductRecord(BaseProductRecord):
 
 
 class EffectiveCost(BaseEffectiveCost):
+    """
+    This model is only to preserve effective cost of item
+    """
     discount = models.IntegerField(default=15)
     cost = models.ForeignKey(ProductRecord, on_delete=models.CASCADE)
 
     @property
     def get_effective_cost(self):
-        return (self.cost.price.amount * (100 - self.discount)) / 100
+        return (self.cost.price.amount * (100 - self.discount)) / 100 if self.discount else self.cost.price.amount
 
     @property
     def get_total_effective_cost(self):

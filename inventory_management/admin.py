@@ -3,7 +3,7 @@ from easy_select2.utils import select2_modelform
 from nested_inline.admin import NestedModelAdmin
 from django.contrib import admin
 
-from main.admin import BasePurchaseRecordAdmin, BaseEffectiveCostAdmin
+from main.admin import *
 from core_settings.settings import COMPANY_TITLE
 from .models import *
 from .admin_inlines import *
