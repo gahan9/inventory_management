@@ -9,19 +9,20 @@ class CustomerDetailAdmin(BaseCustomerDetailAdmin):
 
 class SaleRecordAdmin(BaseSaleRecordAdmin):
     search_fields = ["name", "address"]
-    list_display = ["id", "invoice_id", "purchase_date", "get_items",
-                    "get_total", "payment_mode", "payment_status", "customer"
+    list_display = ["id", "invoice_id", "sale_date", "get_items",
+                    "amount", "payment_mode", "customer"
                     ]
+    list_filter = ["cancelled"]
     readonly_fields = ["get_total"]
     fieldsets = (
-        (None, {'fields': ["invoice_id", "purchase_date"]}),
-        ("Items", {'fields': ["items"]}),
+        (None, {'fields': ["invoice_id", "sale_date", "cancelled"]}),
+        ("Items", {'fields': ["items", "amount"]}),
         ("Payment Details", {'fields': ["get_total", "payment_mode", "payment_status"]}),
         ("Customer Details", {'fields': ["customer"]}),
     )
     add_fieldsets = (
-        (None, {'fields': ["invoice_id", "purchase_date"]}),
-        ("Items", {'fields': ["items"]}),
+        (None, {'fields': ["invoice_id", "sale_date", "cancelled"]}),
+        ("Items", {'fields': ["items", "amount"]}),
         ("Payment Details", {'fields': ["payment_mode", "payment_status"]}),
         ("Customer Details", {'fields': ["customer"]}),
     )

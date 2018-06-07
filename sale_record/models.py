@@ -1,6 +1,8 @@
 # coding=utf-8
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from djmoney.models.fields import MoneyField
+
 from main.models import *
 from core_settings.settings import PRODUCT_TYPE
 from inventory_management.models import ProductRecord
@@ -59,6 +61,12 @@ class SaleRecord(BaseSaleRecord):
                                   verbose_name=_("Enter Invoice Number"),
                                   help_text=_("Enter Order/Invoice Number"))
     items = models.ManyToManyField(SaleEffectiveCost, blank=True)
+    amount = MoneyField(
+        decimal_places=2, default=0,
+        blank=True, null=True,
+        default_currency='INR', max_digits=11,
+        verbose_name=_("Total Invoice Amount (considered in case of no book entries added)"),
+        help_text=_("Total Payable Invoice Amount [Discounted Rate]*\n*for migration purpose only"))
     customer = models.ForeignKey(CustomerDetail, null=True, blank=True, on_delete=models.CASCADE)
 
     @property
@@ -67,7 +75,7 @@ class SaleRecord(BaseSaleRecord):
             return sum([product.get_total_effective_cost for product in self.items.all()])
         except Exception as e:
             print("Exception in calculating total amount... : " + str(e))
-            return '0'
+            return self.amount
 
     @property
     def get_items(self):

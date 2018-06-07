@@ -176,11 +176,16 @@ class BaseSaleRecord(models.Model):
     invoice_id = models.CharField(max_length=80, blank=True, null=True,
                                   verbose_name=_("Enter Invoice Number"),
                                   help_text=_("Enter Order/Invoice Number"))
-    purchase_date = models.DateField(blank=True, null=True, default=timezone.now,
-                                     help_text=_("Enter date of purchase/invoice"))
+    sale_date = models.DateField(blank=True, null=True, default=timezone.now,
+                                 verbose_name=_("Sale Date"),
+                                 help_text=_("Enter date of purchase/invoice"))
     delivery_date = models.DateField(blank=True, null=True,
                                      help_text=_("Date of order received"))
     payment_mode = models.IntegerField(choices=PAYMENT_MODE, blank=True, null=True)
+    cancelled = models.BooleanField(
+        default=False,
+        verbose_name=_("Cancelled/Refunded"),
+        help_text=_("mark if bill cancelled"))
     payment_status = models.BooleanField(
         default=False,
         verbose_name=_("Payment Status (in transit/dispute)"),
