@@ -33,7 +33,6 @@ class SaleRecordAdmin(BaseSaleRecordAdmin):
         return super().get_fieldsets(request, obj)
 
 
-
 admin.site.register(CustomerDetail, CustomerDetailAdmin)
 admin.site.register(SaleRecord, SaleRecordAdmin)
 admin.site.register(SaleEffectiveCost)
