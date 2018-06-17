@@ -11,7 +11,63 @@ from core_settings.settings import PRODUCT_TYPE
 
 __author__ = "Gahan Saraiya"
 
-__all__ = ['BaseDistributor', 'BaseEffectiveCost', 'BaseProductRecord', 'BasePurchaseRecord', 'BaseCustomer', 'BaseSaleRecord']
+__all__ = ['BaseDistributor', 'BaseEffectiveCost', 'BaseProductRecord', 'BasePurchaseRecord', 'BaseCustomer', 'BaseSaleRecord',
+           'BaseAddress', 'BaseCity', 'BaseState', 'BaseCountry']
+
+
+class BaseState(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        abstract = True
+
+
+class BaseCity(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        abstract = True
+
+
+class BaseCountry(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        abstract = True
+
+
+class BaseAddress(models.Model):
+    contact_name = models.CharField(max_length=255, null=True, blank=True,
+                                    verbose_name=_("Contact Person Name"))
+    address_one = models.TextField(blank=True, null=True,
+                                   verbose_name=_("Address Line 1"))
+    address_two = models.TextField(blank=True, null=True,
+                                   verbose_name=_("Address Line 2"))
+    zip_code = models.CharField(max_length=6, blank=True, null=True,
+                                verbose_name=_("Postal Code"))
+
+    @property
+    def printable_address(self):
+        address = ""
+        address += "{}\n".format(self.contact_name) if self.contact_name else ""
+        address += "{}\n".format(self.address_one) if self.address_one else ""
+        address += "{}\n".format(self.address_two) if self.address_two else ""
+        return address
+
+    def __str__(self):
+        return self.printable_address[:20] + "..." if len(self.printable_address) > 20 else self.printable_address
+
+    class Meta:
+        abstract = True
 
 
 class BaseDistributor(models.Model):
@@ -19,9 +75,11 @@ class BaseDistributor(models.Model):
                             verbose_name=_("Company Name"),
                             help_text=_("Enter Name of the company from which you are making your purchase"))
     contact_number = models.IntegerField(blank=True, null=True,
-                                         verbose_name=_("Contact Number"))
+                                         verbose_name=_("Contact Number"),
+                                         help_text=_("Enter Phone Number with country code: i.e. +919988776655"))
     alternate_contact_number = models.IntegerField(blank=True, null=True,
-                                                   verbose_name=_("Alternate Contact Number"))
+                                                   verbose_name=_("Alternate Contact Number"),
+                                                   help_text=_("Enter Phone Number with country code: i.e. +919988776655"))
     fax_number = models.IntegerField(blank=True, null=True,
                                      verbose_name=_("Fax Number"))
     address = models.TextField(_("Postal Address"), blank=True, null=True,
@@ -50,13 +108,26 @@ class BaseDistributor(models.Model):
 
 
 class BaseProductRecord(models.Model):
+    CATEGORIES = (
+        (5, 5),
+        (12, 12),
+        (18, 18),
+        (28, 28),
+    )
+
     name = models.CharField(max_length=255,
                             verbose_name=_(PRODUCT_TYPE + " Name"),
                             help_text=_("Enter Name/Title of Item"))
-    price = MoneyField(decimal_places=2, default=0, default_currency='INR', max_digits=11,
+    price = MoneyField(decimal_places=2, max_digits=11,
+                       default=0, default_currency='INR',
                        verbose_name=_("MRP of " + PRODUCT_TYPE))
-    available_stock = models.IntegerField(blank=True, null=True, default=0)
+    available_stock = models.IntegerField(blank=True, null=True,
+                                          default=0, validators=[MinValueValidator(0)])
     product_image = models.ImageField(upload_to='media/uploads/', blank=True, null=True)
+    hsn_code = models.CharField(max_length=8, blank=True, null=True)
+    tax = models.IntegerField(blank=True, null=True,
+                              default=5,
+                              choices=CATEGORIES)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
@@ -83,7 +154,10 @@ class BaseEffectiveCost(models.Model):
     discount = models.IntegerField(default=10)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
-    quantity = models.IntegerField(default=1, blank=True, null=True, validators=[MinValueValidator(1)])
+    quantity = models.IntegerField(blank=True, null=True,
+                                   default=1,
+                                   validators=[MinValueValidator(1)],
+                                   verbose_name=_("Qty."))
 
     @property
     def details(self):
@@ -95,16 +169,20 @@ class BaseEffectiveCost(models.Model):
 
 
 class BasePurchaseRecord(models.Model):
+    COLLECTION = (
+        ("1", '(CGST/SGST)'),
+        ("2", '(IGST)'),
+    )
     PAYMENT_MODE = (
         (1, _("Cash")),
         (2, _("Cheque")),
-        (3, _("Online Transfer NEFT/RTGS")),
-        (4, _("Demand Draft")),
+        (3, _("Card")),
+        (4, _("Online Transfer NEFT/RTGS")),
+        (5, _("Credit/EMI/Loan")),
     )
     invoice_id = models.CharField(max_length=80, blank=True, null=True,
                                   verbose_name=_("Enter Invoice Number"),
                                   help_text=_("Enter Order/Invoice Number"))
-
     purchase_date = models.DateField(blank=True, null=True, default=timezone.now,
                                      help_text=_("Enter date of purchase/invoice"))
     delivery_date = models.DateField(blank=True, null=True,
@@ -142,9 +220,11 @@ class BaseCustomer(models.Model):
                             verbose_name=_("Customer Name"),
                             help_text=_("Enter Name of the customer who is purchasing"))
     contact_number = models.IntegerField(blank=True, null=True,
-                                         verbose_name=_("Contact Number"))
+                                         verbose_name=_("Contact Number"),
+                                         help_text=_("Enter Phone Number with country code: i.e. +919988776655"))
     alternate_contact_number = models.IntegerField(blank=True, null=True,
-                                                   verbose_name=_("Alternate Contact Number"))
+                                                   verbose_name=_("Alternate Contact Number"),
+                                                   help_text=_("Enter Phone Number with country code: i.e. +919988776655"))
     address = models.TextField(_("Postal Address"), blank=True, null=True,
                                help_text=_("Address of distributor"))
     email_address = models.EmailField(blank=True, null=True,
@@ -167,11 +247,16 @@ class BaseCustomer(models.Model):
 
 
 class BaseSaleRecord(models.Model):
+    COLLECTION = (
+        ("1", '(CGST/SGST)'),
+        ("2", '(IGST)'),
+    )
     PAYMENT_MODE = (
         (1, _("Cash")),
         (2, _("Cheque")),
-        (3, _("Online Transfer NEFT/RTGS")),
-        (4, _("Demand Draft")),
+        (3, _("Card")),
+        (4, _("Online Transfer NEFT/RTGS")),
+        (5, _("Credit/EMI/Loan")),
     )
     invoice_id = models.CharField(max_length=80, blank=True, null=True,
                                   verbose_name=_("Enter Invoice Number"),
@@ -190,7 +275,14 @@ class BaseSaleRecord(models.Model):
         default=False,
         verbose_name=_("Payment Status (in transit/dispute)"),
         help_text=_("mark if payment isn't processed immediately"))
-    payment_date = models.DateField(blank=True, null=True)
+    collection = models.CharField(max_length=100, choices=COLLECTION,
+                                  blank=True, null=True,
+                                  default=1,
+                                  verbose_name=_("collection type"))
+    payment_date = models.DateField(blank=True, null=True,
+                                    default=timezone.now,
+                                    verbose_name=_("Payment Date"),
+                                    help_text=_("Date of full payment"))
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 

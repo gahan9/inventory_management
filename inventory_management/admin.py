@@ -30,7 +30,7 @@ class ProductRecordAdmin(NestedModelAdmin):
     inlines = [EffectiveCostInline]
     search_fields = ["name", "launched_by"]
     list_display = ["id", "name", "price", "product_launch_date", "launched_by",
-                    "version",
+                    "version", "available_stock"
                     ]
 
 
@@ -40,13 +40,22 @@ class EffectiveCostAdmin(BaseEffectiveCostAdmin):
     list_display = ["id", "cost", "discount",
                     "get_effective_cost", "get_total_effective_cost"]
     readonly_fields = ["get_effective_cost", "get_total_effective_cost"]
+    add_fieldsets = (
+        (None, {'fields': ["cost", "discount", "quantity"]}),
+    )
+
+    def get_fieldsets(self, request, obj=None):
+        if not obj:
+            return self.add_fieldsets
+        return super().get_fieldsets(request, obj)
 
 
 class PurchaseRecordAdmin(BasePurchaseRecordAdmin):
     form = PurchaseRecordForm
-    list_display = ["id", "invoice_id", "purchased_from", "purchase_date", "get_items",
-                    "get_total", "payment_mode", "payment_status"
+    list_display = ["id", "invoice_id", "purchased_from", "purchase_date", "get_bill_items",
+                    "get_bill_amount",
                     ]
+    list_filter = ["payment_status", "payment_mode"]
     readonly_fields = ['get_total']
     fieldsets = (
         (None, {'fields': ["invoice_id"]}),
@@ -57,7 +66,7 @@ class PurchaseRecordAdmin(BasePurchaseRecordAdmin):
     add_fieldsets = (
         (None, {'fields': ["invoice_id"]}),
         ("Items", {'fields': ["items"]}),
-        ("Payment Details", {'fields': ["get_total", "payment_mode", "payment_status"]}),
+        ("Payment Details", {'fields': ["payment_mode", "payment_status"]}),
         ("Other Details", {'fields': ["purchased_from", "purchase_date"]}),
     )
 

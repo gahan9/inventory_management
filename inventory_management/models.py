@@ -1,5 +1,7 @@
 # coding=utf-8
 from django.db import models
+from django.db.models.signals import m2m_changed
+from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from main.models import *
 from core_settings.settings import PRODUCT_TYPE, PRODUCT_MAKER
@@ -39,15 +41,15 @@ class EffectiveCost(BaseEffectiveCost):
 
     @property
     def get_detail(self):
-        return "{} :{} @{}%= {}; {} per item {} for total item".format(
-            self.cost.name, self.cost.price, self.discount,
-            self.get_effective_cost, self.quantity, self.get_total_effective_cost)
+        return "{} >> [Disc. {}%] [MRP: {}] [Qty. {}] [item cost: {}] [total bill: {}]".format(
+            self.cost.name,  self.discount, self.cost.price, self.quantity,
+            self.get_effective_cost, self.get_total_effective_cost)
 
     def clean(self):
         self.cost.available_stock = self.cost.available_stock + self.quantity
 
     def __str__(self):
-        return "{} - {}% @ {}".format(self.cost.name, self.discount, self.cost.price)
+        return "{} >> [Disc. {}%] [MRP: {}] [Qty. {}]".format(self.cost.name, self.discount, self.cost.price, self.quantity)
 
     class Meta:
         verbose_name = verbose_name_plural = "Effective cost of " + PRODUCT_TYPE
@@ -62,13 +64,25 @@ class PurchaseRecord(BasePurchaseRecord):
 
     @property
     def get_total(self):
-        try:
-            return sum([product.get_total_effective_cost for product in self.items.all()])
-        except Exception as e:
-            print("Exception in calculating total amount... : " + str(e))
-            return '0'
+        return sum([product.get_total_effective_cost for product in self.items.all()])
 
     @property
     def get_items(self):
         return ' | \n'.join([p.get_detail for p in self.items.all()])
 
+    def get_bill_amount(self):
+        return self.get_total
+
+    def get_bill_items(self):
+        return self.get_items
+
+    get_bill_items.short_description = "Items"
+    get_bill_amount.short_description = "Bill Amount"
+
+
+@receiver(m2m_changed, sender=PurchaseRecord.items.through, dispatch_uid="update_stock_count")
+def update_stock(sender, instance, action, **kwargs):
+    if action is "post_add":
+        for item in instance.items.all():
+            item.cost.available_stock += item.quantity
+            item.cost.save()
