@@ -67,3 +67,18 @@ target/
 mysql_digital_ocean.conf
 inventory_management/migrations/0*
 sale_record/migrations/0*
+
+# VS Code
+.vscode/
+
+# Spyder
+.spyproject/
+
+# Jupyter NB Checkpoints
+.ipynb_checkpoints/
+
+# exclude data from source control by default
+/data/
+
+# Mac OS-specific storage files
+.DS_Store
