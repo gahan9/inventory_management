@@ -112,7 +112,6 @@ def draw_pdf(buffer, invoice):
     # Client address
     textobject = canvas.beginText(1.5 * cm, -2.5 * cm)
     contact_name = invoice.customer.name
-    contact_number = invoice.customer.contact_number.as_international
     if contact_name:
         textobject.textLine(contact_name)
     if invoice.customer.address:
@@ -128,8 +127,8 @@ def draw_pdf(buffer, invoice):
             textobject.textLine(invoice.customer.address.zip_code)
         if invoice.customer.address.country:
             textobject.textLine(invoice.customer.address.country.name)
-    if contact_number:
-        textobject.textLine(contact_number)
+    if invoice.customer.contact_number:
+        textobject.textLine(invoice.customer.contact_number.as_international)
     canvas.drawText(textobject)
 
     # Info

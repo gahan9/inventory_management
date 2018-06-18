@@ -191,8 +191,8 @@ COMPANY_LOGO = "/static/assets/logos/favicon.png"
 COPYRIGHT_SINCE = 2017
 COMPANY_EMAIL = "company@example.com"
 COMPANY_CONTACT_NUMBER = "+91 99991 99991"
-COMPANY_WEBSITE = ""
-COMPANY_ADDRESS_LINE_ONE = "Shop No. 5, R World 21,Sector-21"
+COMPANY_WEBSITE = "gahantraders.business.site"
+COMPANY_ADDRESS_LINE_ONE = "Sector-21"
 COMPANY_ADDRESS_LINE_TWO = "Gandhinagar, Gujarat-382021"
 COMPANY_COUNTRY = "India"
 

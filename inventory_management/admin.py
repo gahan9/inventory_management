@@ -52,6 +52,7 @@ class EffectiveCostAdmin(BaseEffectiveCostAdmin):
 
 class PurchaseRecordAdmin(BasePurchaseRecordAdmin):
     form = PurchaseRecordForm
+    search_fields = ["invoice_id"]
     list_display = ["id", "invoice_id", "purchased_from", "purchase_date", "get_bill_items",
                     "get_bill_amount",
                     ]

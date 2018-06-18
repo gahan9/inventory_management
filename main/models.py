@@ -4,6 +4,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from djmoney.models.fields import MoneyField
+from phonenumber_field.modelfields import PhoneNumberField
 
 from core_settings.settings import PRODUCT_TYPE
 
@@ -223,12 +224,12 @@ class BaseCustomer(models.Model):
     name = models.CharField(max_length=255,
                             verbose_name=_("Customer Name"),
                             help_text=_("Enter Name of the customer who is purchasing"))
-    contact_number = models.IntegerField(blank=True, null=True,
-                                         verbose_name=_("Contact Number"),
-                                         help_text=_("Enter Phone Number with country code: i.e. +919988776655"))
-    alternate_contact_number = models.IntegerField(blank=True, null=True,
-                                                   verbose_name=_("Alternate Contact Number"),
-                                                   help_text=_("Enter Phone Number with country code: i.e. +919988776655"))
+    contact_number = PhoneNumberField(blank=True, null=True,
+                                      verbose_name=_("Contact Number"),
+                                      help_text=_("Enter Phone Number with country code: i.e. +919988776655"))
+    alternate_contact_number = PhoneNumberField(blank=True, null=True,
+                                                verbose_name=_("Alternate Contact Number"),
+                                                help_text=_("Enter Phone Number with country code: i.e. +919988776655"))
     address = models.TextField(_("Postal Address"), blank=True, null=True,
                                help_text=_("Address of distributor"))
     email_address = models.EmailField(blank=True, null=True,

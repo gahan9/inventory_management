@@ -18,7 +18,7 @@ class BaseSaleEffectiveCostAdmin(admin.ModelAdmin):
 class SaleRecordAdmin(BaseSaleRecordAdmin):
     search_fields = ["name", "address"]
     list_display = ["id", "invoice_id", "sale_date", "get_items",
-                    "amount", "payment_mode", "customer"
+                    "amount", "payment_mode", "customer", "get_reference_id"
                     ]
     list_filter = ["cancelled"]
     readonly_fields = ["get_total", "get_reference_id"]

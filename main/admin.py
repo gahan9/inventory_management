@@ -39,7 +39,7 @@ class BaseEffectiveCostAdmin(admin.ModelAdmin):
 
 
 class BasePurchaseRecordAdmin(admin.ModelAdmin):
-    search_fields = ["name", "address"]
+    search_fields = ["invoice_id"]
     list_display = ["id", "invoice_id", "purchased_from", "purchase_date", "get_items",
                     "total_amount", "payment_mode", "payment_status"
                     ]
