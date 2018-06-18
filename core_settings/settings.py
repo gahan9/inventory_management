@@ -185,7 +185,9 @@ PRODUCT_MAKER = {
 }  # Product type may be book, software a specific hardware, groceries etc.
 PRODUCT_TYPE = "Book"
 COMPANY_TITLE = "Gahan Traders"  # Title of your company
-COMPANY_LOGO = "https://lh3.googleusercontent.com/-B6uTIjXzGw4/AAAAAAAAAAI/AAAAAAAAAAA/yB-tSKpt5CA/s40-c-k-mo/photo.jpg"
+# COMPANY_LOGO = "https://lh3.googleusercontent.com/-B6uTIjXzGw4/AAAAAAAAAAI/AAAAAAAAAAA/yB-tSKpt5CA/s40-c-k-mo/photo.jpg"
+# COMPANY_LOGO = os.path.join(STATICFILES_DIRS[0], "assets", "logos", "favicon.png")
+COMPANY_LOGO = "/static/assets/logos/favicon.png"
 COPYRIGHT_SINCE = 2017
 COMPANY_EMAIL = "company@example.com"
 COMPANY_CONTACT_NUMBER = "+91 99991 99991"
@@ -199,7 +201,7 @@ INV_ROOT = os.path.join(MEDIA_ROOT, "invoices")
 if not os.path.exists(INV_ROOT):
     os.makedirs(INV_ROOT)
 # INV_LOGO = "http://icons.iconarchive.com/icons/graphicloads/100-flat-2/256/mobile-2-icon.png"  # Web Path
-INV_LOGO = os.path.join(STATICFILES_DIRS[0], "assets", "logos", "mobile-icon.png")
+INV_LOGO = os.path.join(STATICFILES_DIRS[0], "assets", "logos", "favicon.png")
 INV_MODULE = os.path.join(BASE_DIR, "main", "utils.py")
 INV_CURRENCY_SYMBOL = "₹"
 INV_CURRENCY_PREFIX = "INR"
