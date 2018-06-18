@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'djmoney',
     'nested_inline',
     'easy_select2',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
@@ -173,14 +174,34 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # in bytes
 
 # Module Setting
 # Below Include Module details which you want to change
+PHONENUMBER_DEFAULT_REGION = "IN"
 PRODUCT_MAKER = {
     "Book": ("Publisher", "Launched"),
     "Groceries": ("Supplier", "Manufactured"),
     "Software": ("Developer", "Released"),
     "Pharmacy": ("Distributor", "Launched"),
-    "Electronics": ("Manufacturer", "Launched")
+    "Electronics": ("Manufacturer", "Launched"),
+    "Mobile": ("Manufacturer", "Launched")
 }  # Product type may be book, software a specific hardware, groceries etc.
 PRODUCT_TYPE = "Book"
 COMPANY_TITLE = "Gahan Traders"  # Title of your company
 COMPANY_LOGO = "https://lh3.googleusercontent.com/-B6uTIjXzGw4/AAAAAAAAAAI/AAAAAAAAAAA/yB-tSKpt5CA/s40-c-k-mo/photo.jpg"
 COPYRIGHT_SINCE = 2017
+COMPANY_EMAIL = "company@example.com"
+COMPANY_CONTACT_NUMBER = "+91 99991 99991"
+COMPANY_WEBSITE = ""
+COMPANY_ADDRESS_LINE_ONE = "Shop No. 5, R World 21,Sector-21"
+COMPANY_ADDRESS_LINE_TWO = "Gandhinagar, Gujarat-382021"
+COMPANY_COUNTRY = "India"
+
+# Invoice Config
+INV_ROOT = os.path.join(MEDIA_ROOT, "invoices")
+if not os.path.exists(INV_ROOT):
+    os.makedirs(INV_ROOT)
+# INV_LOGO = "http://icons.iconarchive.com/icons/graphicloads/100-flat-2/256/mobile-2-icon.png"  # Web Path
+INV_LOGO = os.path.join(STATICFILES_DIRS[0], "assets", "logos", "mobile-icon.png")
+INV_MODULE = os.path.join(BASE_DIR, "main", "utils.py")
+INV_CURRENCY_SYMBOL = "₹"
+INV_CURRENCY_PREFIX = "INR"
+INV_CURRENCY = "Indian Rupees"
+GST_NUMBER = "00000000"

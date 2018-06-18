@@ -1,4 +1,4 @@
-JET_DEFAULT_THEME = 'light-gray'
+JET_DEFAULT_THEME = 'default'
 
 
 JET_THEMES = [
@@ -47,13 +47,14 @@ JET_SIDE_MENU_ITEMS = [
     #     {'name': 'token'},
     # ]},
     {'app_label': 'auth', 'items': [
-        # {'name': 'group'},
         {'name': 'user'},
     ]},
     {'app_label': 'inventory_management', 'items': [
-        # {'name': 'productrecord'},
-        # {'name': 'effectivecost'},
+        {'name': 'productrecord'},
         {'name': 'purchaserecord'},
-        # {'name': 'distributor'},
+    ]},
+    {'app_label': 'sale_record', 'items': [
+        {'name': 'customerdetail'},
+        {'name': 'salerecord'},
     ]},
 ]

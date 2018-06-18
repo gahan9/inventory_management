@@ -7,13 +7,21 @@ class CustomerDetailAdmin(BaseCustomerDetailAdmin):
     pass
 
 
+class BaseSaleEffectiveCostAdmin(admin.ModelAdmin):
+    def has_change_permission(self, *args, **kwargs):
+        return False
+
+    def has_delete_permission(self, *args, **kwargs):
+        return False
+
+
 class SaleRecordAdmin(BaseSaleRecordAdmin):
     search_fields = ["name", "address"]
     list_display = ["id", "invoice_id", "sale_date", "get_items",
                     "amount", "payment_mode", "customer"
                     ]
     list_filter = ["cancelled"]
-    readonly_fields = ["get_total"]
+    readonly_fields = ["get_total", "get_reference_id"]
     fieldsets = (
         (None, {'fields': ["invoice_id", "sale_date", "cancelled"]}),
         ("Items", {'fields': ["items", "amount"]}),
@@ -33,6 +41,11 @@ class SaleRecordAdmin(BaseSaleRecordAdmin):
         return super().get_fieldsets(request, obj)
 
 
+admin.site.register(City)
+admin.site.register(State)
+admin.site.register(Country)
+admin.site.register(Address)
 admin.site.register(CustomerDetail, CustomerDetailAdmin)
 admin.site.register(SaleRecord, SaleRecordAdmin)
 admin.site.register(SaleEffectiveCost)
+admin.site.register(PathMapping)

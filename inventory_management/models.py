@@ -22,6 +22,11 @@ class ProductRecord(BaseProductRecord):
         blank=True, null=True,
         verbose_name="Edition",
         help_text="Enter Version or Edition of Item (if applicable)")
+    specs = models.TextField(blank=True, null=True,
+                             verbose_name=_("Description"),
+                             help_text=_("Enter Product specification or any other related details"))
+    product_link = models.URLField(blank=True, null=True,
+                                   verbose_name=_("Product Link (if any)"))
 
 
 class EffectiveCost(BaseEffectiveCost):

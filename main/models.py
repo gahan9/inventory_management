@@ -1,8 +1,6 @@
 # coding=utf-8
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.db.models.signals import post_save, pre_save
-from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from djmoney.models.fields import MoneyField
@@ -114,7 +112,10 @@ class BaseProductRecord(models.Model):
         (18, 18),
         (28, 28),
     )
-
+    COLLECTION = (
+        (1, '(CGST/SGST)'),
+        (2, '(IGST)'),
+    )
     name = models.CharField(max_length=255,
                             verbose_name=_(PRODUCT_TYPE + " Name"),
                             help_text=_("Enter Name/Title of Item"))
@@ -126,10 +127,17 @@ class BaseProductRecord(models.Model):
     product_image = models.ImageField(upload_to='media/uploads/', blank=True, null=True)
     hsn_code = models.CharField(max_length=8, blank=True, null=True)
     tax = models.IntegerField(blank=True, null=True,
-                              default=5,
                               choices=CATEGORIES)
+    tax_type = models.IntegerField(blank=True, null=True,
+                                   choices=COLLECTION,
+                                   verbose_name=_("Tax Type"),
+                                   help_text=_("Tax collection type"))
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
+
+    def split_name(self, size=20):
+        name = [self.name[i:i+size] for i in range(0, len(self.name), size)]
+        return '\n'.join(name)
 
     @property
     def has_image(self):
@@ -169,10 +177,6 @@ class BaseEffectiveCost(models.Model):
 
 
 class BasePurchaseRecord(models.Model):
-    COLLECTION = (
-        ("1", '(CGST/SGST)'),
-        ("2", '(IGST)'),
-    )
     PAYMENT_MODE = (
         (1, _("Cash")),
         (2, _("Cheque")),
@@ -247,10 +251,6 @@ class BaseCustomer(models.Model):
 
 
 class BaseSaleRecord(models.Model):
-    COLLECTION = (
-        ("1", '(CGST/SGST)'),
-        ("2", '(IGST)'),
-    )
     PAYMENT_MODE = (
         (1, _("Cash")),
         (2, _("Cheque")),
@@ -275,10 +275,6 @@ class BaseSaleRecord(models.Model):
         default=False,
         verbose_name=_("Payment Status (in transit/dispute)"),
         help_text=_("mark if payment isn't processed immediately"))
-    collection = models.CharField(max_length=100, choices=COLLECTION,
-                                  blank=True, null=True,
-                                  default=1,
-                                  verbose_name=_("collection type"))
     payment_date = models.DateField(blank=True, null=True,
                                     default=timezone.now,
                                     verbose_name=_("Payment Date"),
