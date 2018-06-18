@@ -61,7 +61,7 @@ class EffectiveCost(BaseEffectiveCost):
 
 
 class PurchaseRecord(BasePurchaseRecord):
-    items = models.ManyToManyField(EffectiveCost, blank=True)
+    items = models.ManyToManyField(EffectiveCost)
     purchased_from = models.ForeignKey(
         Distributor, on_delete=models.CASCADE,
         verbose_name=_("Supplier Name"),

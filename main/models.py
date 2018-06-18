@@ -184,7 +184,7 @@ class BasePurchaseRecord(models.Model):
         (4, _("Online Transfer NEFT/RTGS")),
         (5, _("Credit/EMI/Loan")),
     )
-    invoice_id = models.CharField(max_length=80, blank=True, null=True,
+    invoice_id = models.CharField(max_length=80,
                                   verbose_name=_("Enter Invoice Number"),
                                   help_text=_("Enter Order/Invoice Number"))
     purchase_date = models.DateField(blank=True, null=True, default=timezone.now,
@@ -197,7 +197,7 @@ class BasePurchaseRecord(models.Model):
         default_currency='INR', max_digits=11,
         verbose_name=_("Total Invoice Amount"),
         help_text=_("Total Payable Invoice Amount [Discounted Rate]"))
-    payment_mode = models.IntegerField(choices=PAYMENT_MODE, blank=True, null=True)
+    payment_mode = models.IntegerField(choices=PAYMENT_MODE)
     payment_status = models.BooleanField(
         default=False,
         verbose_name=_("Payment Status (in transit/dispute)"),

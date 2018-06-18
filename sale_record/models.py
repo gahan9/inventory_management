@@ -125,17 +125,17 @@ class CustomerDetail(BaseCustomer):
 
 
 class SaleRecord(BaseSaleRecord):
-    invoice_id = models.CharField(max_length=500, default=increment_invoice_number, null=True, blank=True,
+    invoice_id = models.CharField(max_length=500, default=increment_invoice_number,
                                   verbose_name=_("Enter Invoice Number"),
                                   help_text=_("Enter Order/Invoice Number"))
-    items = models.ManyToManyField(SaleEffectiveCost, blank=True)
+    items = models.ManyToManyField(SaleEffectiveCost)
     amount = MoneyField(
         decimal_places=2, default=0,
         blank=True, null=True,
         default_currency='INR', max_digits=11,
         verbose_name=_("Total Invoice Amount (considered in case of no book entries added)"),
         help_text=_("Total Payable Invoice Amount [Discounted Rate]*\n*for migration purpose only"))
-    customer = models.ForeignKey(CustomerDetail, null=True, blank=True, on_delete=models.CASCADE)
+    customer = models.ForeignKey(CustomerDetail, on_delete=models.CASCADE)
 
     @property
     def get_total(self):
