@@ -32,6 +32,7 @@ Features:
 - Email integrated (for web user)
 
 Features in Detail:
+
 Data Entry
 
     Purchase details
