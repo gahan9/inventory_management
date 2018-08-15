@@ -184,7 +184,7 @@ PRODUCT_MAKER = {
     "Mobile": ("Manufacturer", "Launched")
 }  # Product type may be book, software a specific hardware, groceries etc.
 PRODUCT_TYPE = "Book"
-COMPANY_TITLE = "Gahan Traders"  # Title of your company
+COMPANY_TITLE = "--DEMO--"  # Title of your company
 # COMPANY_LOGO = "https://lh3.googleusercontent.com/-B6uTIjXzGw4/AAAAAAAAAAI/AAAAAAAAAAA/yB-tSKpt5CA/s40-c-k-mo/photo.jpg"
 # COMPANY_LOGO = os.path.join(STATICFILES_DIRS[0], "assets", "logos", "favicon.png")
 COMPANY_LOGO = "/static/assets/logos/favicon.png"
