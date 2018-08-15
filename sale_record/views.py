@@ -1,7 +1,9 @@
 import os
-
+import json
+import requests
 from django.http import HttpResponse, HttpResponseBadRequest, FileResponse
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 from django.views.generic.base import View
 from reportlab.pdfgen import canvas
@@ -28,3 +30,17 @@ class InvoiceGenerateView(View):
             err_msg = str(e)
             response = "No invoice exist for given query"
             return HttpResponse(response)
+
+
+class TableTemplateView(TemplateView):
+    template_name = "table_display.html"
+
+    def get_json(self):
+        json_url = "https://raw.githubusercontent.com/gahan9/SE_lab/master/practical_1/data.json"
+        response = requests.get(json_url)
+        return response.json()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context["process_model"] = self.get_json().get("process_models", [])
+        return context
