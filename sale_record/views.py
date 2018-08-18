@@ -8,6 +8,7 @@ from django.views.generic import TemplateView
 from django.views.generic.base import View
 from reportlab.pdfgen import canvas
 from rest_framework import viewsets
+from rest_framework.permissions import AllowAny
 
 from core_settings.settings import INV_ROOT
 from main.serializers import TempAPISerializer
@@ -52,3 +53,4 @@ class TableTemplateView(TemplateView):
 class TempAPIViewSet(viewsets.ModelViewSet):
     serializer_class = TempAPISerializer
     queryset = TempAPI.objects.all().order_by("-date_created")
+    permission_classes = [AllowAny]
