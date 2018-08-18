@@ -156,6 +156,15 @@ class SaleRecord(BaseSaleRecord):
         return format_html(_href)
 
 
+class TempAPI(models.Model):
+    data = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.data[:15]
+
+
 @receiver(m2m_changed, sender=SaleRecord.items.through, dispatch_uid="update_stock_count")
 def update_stock(sender, instance, action, **kwargs):
     if action is "post_add":

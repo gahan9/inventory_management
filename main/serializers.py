@@ -1,6 +1,7 @@
 # coding=utf-8
 from rest_framework import serializers
 
+from sale_record.models import TempAPI
 from .models import *
 
 __author__ = "Gahan Saraiya"
@@ -37,3 +38,9 @@ class BaseDistributorSerializer(serializers.HyperlinkedModelSerializer):
         model = BaseDistributor
         fields = ["id", "url", "name", "contact_number", "alternate_contact_number",
                   "fax_number", "address", "email_address", "date_created"]
+
+
+class TempAPISerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TempAPI
+        fields = ["id", "data", "date_created"]

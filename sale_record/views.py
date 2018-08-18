@@ -7,10 +7,13 @@ from django.views.generic import TemplateView
 
 from django.views.generic.base import View
 from reportlab.pdfgen import canvas
+from rest_framework import viewsets
 
 from core_settings.settings import INV_ROOT
+from main.serializers import TempAPISerializer
 from main.utils import draw_pdf
 from sale_record.models import *
+from sale_record.models import TempAPI
 
 __author__ = "Gahan Saraiya"
 
@@ -44,3 +47,8 @@ class TableTemplateView(TemplateView):
         context = super().get_context_data()
         context["process_model"] = self.get_json().get("process_models", [])
         return context
+
+
+class TempAPIViewSet(viewsets.ModelViewSet):
+    serializer_class = TempAPISerializer
+    queryset = TempAPI.objects.all().order_by("-date_created")
