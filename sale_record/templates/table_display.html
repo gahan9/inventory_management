@@ -11,12 +11,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container-fluid" style="margin-left: 20%">
+    <div class="container-fluid" style="margin-left: 20%; width: 80%">
         <p class="display-4">Software Process Model</p>
     </div>
     <div class="container-fluid">
-        <table class="table table-inverse table-responsive">
-            <thead class="">
+        <table class="table table-responsive {% if border %}table-bordered{% endif %}">
+            <thead style="font-weight: bold">
                 <tr>
                     <td>Sr No.</td>
                     <td>Title</td>
@@ -39,7 +39,7 @@
                             {% if skip_image == 0 %}
                                 <td>
                                     {%  for img in i.images %}
-                                        <a href="{{ img }}"><img src="{{ img }}" alt="{{ img }}" style="max-width: 400px"></a><br>
+                                        <a href="{{ img }}"><img src="{{ img }}" alt="{{ img }}" style="min-width: 100px; max-width: {% if max_img %}{{ max_img }}px{% else %}400px{% endif %}"></a><br>
                                     {% endfor %}
                                 </td>
                             {% endif %}
@@ -58,22 +58,33 @@
     </div>
     <div class="card text-center">
       <div class="card-header">
-
+          <h4>Summary</h4>
       </div>
       <div class="card-body">
         <h5 class="card-title"></h5>
         <p class="card-text">
-            <a href="https://stackoverflow.com/users/7664524/gahan">
-                <img src="https://stackoverflow.com/users/flair/7664524.png?theme=clean" alt="profile for Gahan Saraiya at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Gahan Saraiya at Stack Overflow, Q&amp;A for professional and enthusiast programmers" width="208" height="58">
-            </a>
+            I am going to pursue Software as a Service for web portal, management of product sale, purchase and inventory.
+            Such a product has a very large scope to develop in future and because it's target many field for generic product
+            the system needs continuous testing development and adapting new requirements along with upcoming technologies hence the best suitable model for this project is Disciplined agile delivery (DAD)
         </p>
-        <a href="https://github.com/Gahan9" target="_blank" class="btn"><svg version="1.1" width="14" height="14" viewBox="0 0 16 16" class="octicon octicon-mark-github" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg> <span>
-            git Profile
-        </span></a>
       </div>
       <div class="card-footer text-muted">
-        Developed by @Gahan Saraiya
+          18MCEC10 - Gahan M. Saraiya
+            <br>Student, M. Tech, Nirma University
       </div>
+        {% if footer == 1 %}
+          <div class="card-footer text-muted">
+            <p class="card-text">
+                <a href="https://stackoverflow.com/users/7664524/gahan">
+                    <img src="https://stackoverflow.com/users/flair/7664524.png?theme=clean" alt="profile for Gahan Saraiya at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Gahan Saraiya at Stack Overflow, Q&amp;A for professional and enthusiast programmers" width="208" height="58">
+                </a>
+            </p>
+            <a href="https://github.com/Gahan9" target="_blank" class="btn"><svg version="1.1" width="14" height="14" viewBox="0 0 16 16" class="octicon octicon-mark-github" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg> <span>
+                git Profile
+            </span></a><br>
+            Developed by @Gahan Saraiya
+          </div>
+        {% endif %}
     </div>
 </body>
 </html>
