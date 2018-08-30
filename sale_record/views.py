@@ -48,6 +48,7 @@ class TableTemplateView(TemplateView):
         query_params = self.request.GET
         context = super().get_context_data()
         context["process_model"] = self.get_json().get("process_models", [])
+        context["summary"] = self.get_json().get("summary", "")
         context["skip_reference"] = int(query_params.get("skip_reference", 1))
         context["skip_image"] = int(query_params.get("skip_image", 0))
         context["footer"] = int(query_params.get("footer", 1))
