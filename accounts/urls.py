@@ -1,5 +1,5 @@
 # coding=utf-8
-from django.contrib.auth.views import login as django_login, logout as django_logout
+from django.contrib.auth.views import LoginView, LogoutView
 from django.conf.urls.static import static
 from django.urls import path
 
@@ -8,8 +8,8 @@ from core_settings import settings
 
 urlpatterns = [
     # Login Logout
-    path('login/', django_login, {'template_name': 'login.html', 'authentication_form': LoginForm}, name='login'),
-    path('logout/', django_logout, {'next_page': '/login/'}, name='logout'),
+    path('login/', LoginView.as_view(template_name='login.html'), {'authentication_form': LoginForm}, name='login'),
+    path('logout/', LogoutView.as_view(), {'next_page': '/login/'}, name='logout'),
 ]
 
 if settings.DEBUG:

@@ -12,9 +12,9 @@ from core_settings import settings
 
 # register api with default router
 router = routers.DefaultRouter()
-router.register(r'effective_cost', EffectiveCostViewSet, base_name="effectivecost")
-router.register(r'purchase', PurchaseRecordViewSet, base_name="purchaserecord")
-router.register(r'distributor', DistributorViewSet, base_name="distributor")
+router.register(r'effective_cost', EffectiveCostViewSet, basename="effectivecost")
+router.register(r'purchase', PurchaseRecordViewSet, basename="purchaserecord")
+router.register(r'distributor', DistributorViewSet, basename="distributor")
 # router.register(r'sales')
 
 urlpatterns = [

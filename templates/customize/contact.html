@@ -5,7 +5,7 @@
                 <td valign="top"
                     style="padding: 10px 7px 0 0;border-top: 0; border-bottom: 0; border-left: 0; border-right: solid 3px #A23748;">
                     <img id="preview-image-url"
-                         src="https://plus.google.com/u/2/_/focus/photos/public/AIbEiAIAAABDCMa6mvfkzOzAUyILdmNhcmRfcGhvdG8qKDg1YWE4YjUyN2JjMzdjMDgxY2NhZDNjNzNlNDZjMjQ1ZTFiYmUyYjUwAdlSqCMih3owSPwng70CGC-AXD1z">
+                         src="{% block favicon %} {{ SITE_LOGO }} {% endblock %}" height="150px">
                 </td>
                 <td style="padding: 0 0 0 12px;">
                     <table cellpadding="0" cellspacing="0" border="0" style="background: none; border-width: 0;margin: 0; padding: 0;">
@@ -15,7 +15,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="color: #333333; font-size: 16px; font-family: Arial, Helvetica, sans-serif;"><strong>GAHAN TRADERS</strong></td>
+                            <td colspan="2" style="color: #333333; font-size: 16px; font-family: Arial, Helvetica, sans-serif;"><strong> {{ SITE_NAME|upper }} </strong></td>
                         </tr>
                         <tr>
                             <td width="20" valign="top" style="vertical-align: top; width: 20px; color: #A23748; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
