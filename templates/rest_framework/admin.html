@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 {% load i18n %}
 {% load rest_framework %}
 
@@ -12,7 +12,7 @@
             <meta name="robots" content="NONE,NOARCHIVE"/>
         {% endblock %}
 
-        <title>{% block title %}Django REST framework{% endblock %}</title>
+        <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
 
         {% block style %}
             {% block bootstrap_theme %}
@@ -262,10 +262,10 @@
         <script>
             window.drf = {
                 csrfHeaderName: "{{ csrf_header_name|default:'X-CSRFToken' }}",
-                csrfCookieName: "{{ csrf_cookie_name|default:'csrftoken' }}"
+                csrfToken: "{{ csrf_token }}"
             };
         </script>
-        <script src="{% static "rest_framework/js/jquery-1.12.4.min.js" %}"></script>
+        <script src="{% static "rest_framework/js/jquery-3.5.1.min.js" %}"></script>
         <script src="{% static "rest_framework/js/ajax-form.js" %}"></script>
         <script src="{% static "rest_framework/js/csrf.js" %}"></script>
         <script src="{% static "rest_framework/js/bootstrap.min.js" %}"></script>
