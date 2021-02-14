@@ -82,6 +82,7 @@ REST_FRAMEWORK = {
 }
 
 ROOT_URLCONF = 'core_settings.urls'
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 TEMPLATES = [
     {
